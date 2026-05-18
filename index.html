@@ -1,1 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VGGT-Edit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.12);
+      --text: #eef2ff;
+      --muted: #b8c0d9;
+      --accent: #7c9cff;
+      --accent2: #6ee7f9;
+      --max-width: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(124,156,255,0.22), transparent 30%),
+        radial-gradient(circle at top right, rgba(110,231,249,0.16), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(92%, var(--max-width));
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 90px 0 70px;
+      position: relative;
+    }
+
+    .hero {
+      text-align: center;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 28px;
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+      margin-bottom: 26px;
+    }
+
+    .gradient {
+      background: linear-gradient(90deg, #ffffff 0%, #b8c8ff 45%, #6ee7f9 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.9;
+      max-width: 900px;
+      margin: 0 auto 40px;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 26px;
+      border-radius: 14px;
+      font-weight: 600;
+      transition: all 0.25s ease;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), #93a7ff);
+      color: white;
+      border: none;
+      box-shadow: 0 10px 40px rgba(124,156,255,0.35);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    section {
+      padding: 70px 0;
+    }
+
+    .section-title {
+      font-size: 34px;
+      margin-bottom: 18px;
+      letter-spacing: -0.03em;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 850px;
+      margin-bottom: 42px;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 28px;
+      backdrop-filter: blur(16px);
+      transition: all 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(124,156,255,0.45);
+    }
+
+    .card h3 {
+      font-size: 22px;
+      margin-bottom: 14px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-top: 28px;
+    }
+
+    .feature-card {
+      padding: 30px;
+      border-radius: 26px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .feature-card .tag {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(124,156,255,0.14);
+      color: #d9e2ff;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+    }
+
+    .figure-block {
+      margin-top: 36px;
+      border-radius: 28px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .figure-block img {
+      width: 100%;
+      display: block;
+    }
+
+    .figure-caption {
+      padding: 18px 22px;
+      color: var(--muted);
+      font-size: 15px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 36px;
+    }
+
+    @media (max-width: 900px) {
+      .two-column {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .pipeline {
+      margin-top: 32px;
+      padding: 36px;
+      border-radius: 30px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .pipeline-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .pipeline-step {
+      background: rgba(255,255,255,0.05);
+      border-radius: 18px;
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+    }
+
+    .pipeline-step span {
+      display: inline-flex;
+      width: 42px;
+      height: 42px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 22px;
+      margin-top: 30px;
+    }
+
+    .metric {
+      padding: 30px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+    }
+
+    .metric h2 {
+      font-size: 42px;
+      margin-bottom: 10px;
+      color: #d9e2ff;
+    }
+
+    .metric p {
+      color: var(--muted);
+    }
+
+    .citation {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 28px;
+      overflow-x: auto;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    footer {
+      padding: 50px 0 80px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .subtitle {
+        font-size: 18px;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+
+      section {
+        padding: 50px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <div class="hero">
+        <div class="badge">
+          Native 3D Editing · Feed-Forward Framework
+        </div>
+
+        <h1>
+          <span class="gradient">VGGT-Edit</span><br>
+          From 3D Reconstruction<br>
+          to Native 3D Editing
+        </h1>
+
+        <p class="subtitle">
+          VGGT-Edit is a feed-forward framework for instruction-driven native 3D scene editing.
+          Built upon VGGT-Like 3D reconstruction models, it enables stable, view-consistent,
+          and real-time 3D editing directly in geometry space.
+        </p>
+
+        <div class="button-group">
+          <a class="btn primary" href="https://arxiv.org/abs/2605.15186" target="_blank">
+            Read Paper
+          </a>
+          <a class="btn" href="https://arxiv.org/abs/2605.15186" target="_blank">
+            arXiv
+          </a>
+          <a class="btn" href="#overview">
+            Explore Method
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="overview">
+    <div class="container">
+      <h2 class="section-title">Overview</h2>
+      <p class="section-desc">
+        Existing 3D editing pipelines often rely on multi-view 2D editing and re-projection,
+        which leads to geometric inconsistency, drifting backgrounds, and unstable results.
+        VGGT-Edit instead performs editing directly in native 3D space.
+      </p>
+
+      <div class="figure-block">
+        <img src="assets/figure1.png" alt="Figure 1">
+        <div class="figure-caption">
+          Figure 1. Comparison between existing 3D editing pipelines and VGGT-Edit.
+          Existing methods rely on multi-view 2D editing, while VGGT-Edit performs editing directly in native 3D space.
+        </div>
+      </div>
+
+      <div class="overview-grid" style="margin-top: 34px;">
+        <div class="card">
+          <h3>Native 3D Editing</h3>
+          <p>
+            Avoids 2D lifting pipelines and performs scene editing directly in geometry space.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Feed-Forward Inference</h3>
+          <p>
+            Maintains low-latency editing with stable performance across different scenes.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>View Consistency</h3>
+          <p>
+            Produces coherent multi-view editing results while preserving structural integrity.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Interactive Editing</h3>
+          <p>
+            Enables practical real-time 3D scene manipulation for spatial intelligence systems.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2 class="section-title">Core Contributions</h2>
+      <p class="section-desc">
+        VGGT-Edit introduces a unified native 3D editing framework with residual field learning,
+        synchronized semantic injection, and view-aware geometric fusion.
+      </p>
+
+      <div class="feature-grid">
+
+        <div class="feature-card">
+          <div class="tag">Residual Field Prediction</div>
+          <h3>Editing as 3D Residual Learning</h3>
+          <p>
+            Instead of reconstructing the entire scene, VGGT-Edit predicts localized 3D residual
+            transformations. Static regions remain stable while editable regions are selectively modified.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="tag">Semantic Alignment</div>
+          <h3>Depth-Synchronized Text Injection</h3>
+          <p>
+            Text semantics are continuously injected across multiple feature depths,
+            enabling precise alignment between language instructions and spatial regions.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="tag">Geometry Fusion</div>
+          <h3>View-Aware Weighting</h3>
+          <p>
+            The framework dynamically estimates view reliability to reduce artifacts,
+            improve boundary consistency, and maintain geometric coherence.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="tag">Editing Head</div>
+          <h3>Dedicated Native 3D Editing Head</h3>
+          <p>
+            A specialized editing branch directly predicts residual deformation fields,
+            allowing VGGT-Like models to evolve from reconstruction systems into editable 3D world models.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2 class="section-title">Pipeline</h2>
+      <p class="section-desc">
+        VGGT-Edit transforms instruction-driven scene editing into a unified feed-forward 3D residual prediction process.
+      </p>
+
+      <div class="figure-block">
+        <img src="assets/pipeline.png" alt="VGGT-Edit Pipeline">
+        <div class="figure-caption">
+          Overall architecture of VGGT-Edit. The framework predicts localized residual deformation fields directly in geometry space.
+        </div>
+      </div>
+
+      <div class="pipeline">
+        <div class="pipeline-row">
+          <div class="pipeline-step">
+            <span>1</span>
+            <h4>Input Views</h4>
+            <p>Sparse multi-view images</p>
+          </div>
+
+          <div class="pipeline-step">
+            <span>2</span>
+            <h4>Text Instruction</h4>
+            <p>Semantic editing guidance</p>
+          </div>
+
+          <div class="pipeline-step">
+            <span>3</span>
+            <h4>Residual Prediction</h4>
+            <p>Localized 3D deformation field</p>
+          </div>
+
+          <div class="pipeline-step">
+            <span>4</span>
+            <h4>Native Editing</h4>
+            <p>View-consistent edited scene</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2 class="section-title">DeltaScene Dataset</h2>
+      <p class="section-desc">
+        To support native 3D editing research, we construct DeltaScene,
+        a large-scale dataset with nearly 100K instruction-driven 3D editing pairs.
+      </p>
+
+      <div class="two-column">
+        <div class="figure-block">
+          <img src="assets/figure2.png" alt="DeltaScene Dataset">
+          <div class="figure-caption">
+            Figure 2. Overview of the DeltaScene dataset.
+          </div>
+        </div>
+
+        <div class="figure-block">
+          <img src="assets/figure3.png" alt="Dataset Pipeline">
+          <div class="figure-caption">
+            Figure 3. Automated construction pipeline for DeltaScene using LLM and VLM consensus filtering.
+          </div>
+        </div>
+      </div>
+
+      <div class="metrics">
+        <div class="metric">
+          <h2>100K</h2>
+          <p>Editing Pairs</p>
+        </div>
+
+        <div class="metric">
+          <h2>5s</h2>
+          <p>Per-Scene Editing</p>
+        </div>
+
+        <div class="metric">
+          <h2>120×</h2>
+          <p>Acceleration over Optimization Methods</p>
+        </div>
+
+        <div class="metric">
+          <h2>Native</h2>
+          <p>Feed-Forward 3D Editing</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2 class="section-title">Results</h2>
+      <p class="section-desc">
+        VGGT-Edit achieves stable multi-view editing results while maintaining fast feed-forward inference.
+      </p>
+
+      <div class="two-column">
+        <div class="figure-block">
+          <img src="assets/figure4.png" alt="Qualitative Results">
+          <div class="figure-caption">
+            Figure 4. Qualitative comparisons across different 3D editing tasks.
+          </div>
+        </div>
+
+        <div class="figure-block">
+          <img src="assets/figure5.png" alt="Generalization Results">
+          <div class="figure-caption">
+            Figure 5. Generalization to unseen editing instructions.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2 class="section-title">Citation</h2>
+
+      <div class="citation">
+<pre>
+@article{vggtedit2026,
+  title={VGGT-Edit: Feed-Forward Native 3D Scene Editing via Residual Field Prediction},
+  author={Anonymous Authors},
+  journal={arXiv preprint arXiv:2605.15186},
+  year={2026}
+}
+</pre>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>
+        VGGT-Edit · Native 3D Editing Framework · 2026
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
 
